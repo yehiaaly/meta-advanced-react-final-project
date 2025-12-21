@@ -6,7 +6,7 @@ This project is a centralized, responsive portfolio web application designed to 
 
 The application demonstrates a mastery of front-end development principles, including component composition, state management, client-side validation, and interactive UI animations.
 
-### 🔗 [View Project](https://react-portfolio-project-01.netlify.app/)
+### 🔗 [View Project](https://meta-advanced-react-final-project.pages.dev/)
 
 ## ✨ Key Features
 
