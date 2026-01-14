@@ -17,7 +17,7 @@ import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
 import { useAlertContext } from "../context/alertContext";
 
-const LandingSection = () => {
+const ContactMeSection = () => {
   const { isLoading, response, submit } = useSubmit();
   const { onOpen } = useAlertContext();
 
@@ -37,10 +37,7 @@ const LandingSection = () => {
       type: Yup.string().optional(),
       comment: Yup.string().min(25, "Must be at least 25 characters").required("Required"),
     }),
-
-  }
-
-  );
+  });
 
   useEffect(() => {
     if (response) {
@@ -58,7 +55,7 @@ const LandingSection = () => {
       py={16}
       spacing={8}
     >
-      <VStack w="1024px" p={32} alignItems="flex-start">
+      <VStack w="100%" maxW="1024px" p={{ base: 4, md: 32 }} alignItems="flex-start">
         <Heading as="h1" id="contactme-section">
           Contact me
         </Heading>
@@ -101,7 +98,13 @@ const LandingSection = () => {
                 />
                 <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="purple" width="full" isLoading={isLoading}>
+              <Button
+                type="submit"
+                colorScheme="purple"
+                width="full"
+                isLoading={isLoading}
+                _hover={{ bg: "purple.600", transform: "scale(1.02)" }}
+              >
                 Submit
               </Button>
             </VStack>
@@ -112,4 +115,4 @@ const LandingSection = () => {
   );
 };
 
-export default LandingSection;
+export default ContactMeSection;
