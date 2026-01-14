@@ -12,7 +12,7 @@ import { Box, HStack } from "@chakra-ui/react";
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: yehia.aly@outlook.com",
+    url: "mailto: hello@example.com",
   },
   {
     icon: faGithub,
@@ -33,6 +33,9 @@ const socials = [
 ];
 
 const Header = () => {
+  const boxRef = useRef(null);
+  const prevScrollPosRef = useRef(0);
+
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
@@ -44,33 +47,31 @@ const Header = () => {
     }
   };
 
-  const headerRef = useRef(null);
-  const [prevScrollPos, setPrevScrollPos] = React.useState(0);
-
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      const headerElement = headerRef.current;
-      if (!headerElement) {
-        return;
-      }
+      const prevScrollPos = prevScrollPosRef.current;
+
+      if (!boxRef.current) return;
+
       if (prevScrollPos > currentScrollPos) {
-        headerElement.style.transform = "translateY(0)";
+        boxRef.current.style.transform = "translateY(0)";
       } else {
-        headerElement.style.transform = "translateY(-200px)";
+        boxRef.current.style.transform = "translateY(-200px)";
       }
-      setPrevScrollPos(currentScrollPos);
+      prevScrollPosRef.current = currentScrollPos;
     };
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [prevScrollPos]);
+  }, []);
 
   return (
     <Box
-      ref={headerRef}
+      ref={boxRef}
       position="fixed"
       top={0}
       left={0}
@@ -80,30 +81,54 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
-      zIndex={10}
+      zIndex={100} // Ensure it stays on top
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
-          px={{ base: 4, md: 16 }}
+          px={16}
           py={4}
           justifyContent="space-between"
           alignItems="center"
         >
           <nav>
-            <HStack spacing={6}>
-              {socials.map((link) => (
-                <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={link.icon} size="2x" />
+            <HStack spacing={8}>
+              {socials.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Link to ${social.url}`}
+                >
+                  <FontAwesomeIcon
+                    icon={social.icon}
+                    size="2x"
+                    style={{ transition: "transform 0.2s" }}
+                    onMouseEnter={(e) => e.target.style.transform = "scale(1.2)"}
+                    onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+                  />
                 </a>
               ))}
             </HStack>
           </nav>
           <nav>
             <HStack spacing={8}>
-              <a href="/#projects-section" onClick={handleClick("projects")}>
+              <a
+                href="#projects"
+                onClick={handleClick("projects")}
+                style={{ cursor: "pointer", transition: "color 0.2s" }}
+                onMouseEnter={(e) => e.target.style.color = "#81C784"}
+                onMouseLeave={(e) => e.target.style.color = "white"}
+              >
                 Projects
               </a>
-              <a href="/#contactme-section" onClick={handleClick("contactme")}>
+              <a
+                href="#contactme"
+                onClick={handleClick("contactme")}
+                style={{ cursor: "pointer", transition: "color 0.2s" }}
+                onMouseEnter={(e) => e.target.style.color = "#81C784"}
+                onMouseLeave={(e) => e.target.style.color = "white"}
+              >
                 Contact Me
               </a>
             </HStack>
@@ -113,4 +138,5 @@ const Header = () => {
     </Box>
   );
 };
+
 export default Header;

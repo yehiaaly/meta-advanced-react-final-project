@@ -98,7 +98,13 @@ const ContactMeSection = () => {
                 />
                 <FormErrorMessage>{formik.errors.comment}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="purple" width="full" isLoading={isLoading}>
+              <Button
+                type="submit"
+                colorScheme="purple"
+                width="full"
+                isLoading={isLoading}
+                _hover={{ bg: "purple.600", transform: "scale(1.02)" }}
+              >
                 Submit
               </Button>
             </VStack>
