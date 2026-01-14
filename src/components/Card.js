@@ -5,14 +5,25 @@ import React from "react";
 
 const Card = ({ title, description, imageSrc }) => {
   return (
-    <VStack>
-      <Image src={imageSrc} alt={title} />
-      <Heading size="md">{title}</Heading>
-      <Text>{description}</Text>
-      <HStack cursor="pointer" onClick={() => alert("See more clicked")}>
-        <Text>See more</Text>
-        <FontAwesomeIcon icon={faArrowRight} size="lg" />
-      </HStack>
+    <VStack
+      color="black"
+      backgroundColor="white"
+      borderRadius="xl"
+      cursor="pointer"
+      overflow="hidden"
+      paddingBottom={4}
+    >
+      <Image src={imageSrc} alt={title} borderRadius="xl" />
+      <VStack spacing={4} padding={4} alignItems="flex-start">
+        <Heading size="md">{title}</Heading>
+        <Text color="#64748b" fontSize="lg">
+          {description}
+        </Text>
+        <HStack onClick={() => alert("See more clicked")}>
+          <Text fontWeight="bold">See more</Text>
+          <FontAwesomeIcon icon={faArrowRight} size="1x" />
+        </HStack>
+      </VStack>
     </VStack>
   );
 };
